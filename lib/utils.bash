@@ -37,8 +37,6 @@ list_all_versions() {
 }
 
 download_release() {
-	local version filename url os arc
-	
 	version="$1"
 	filename="$2"
 	os=$(get_machine_os)
