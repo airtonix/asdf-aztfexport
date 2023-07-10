@@ -23,9 +23,10 @@ set -e
 }
 
 # Local vars
-ASDF_VERSION=${ASDF_VERSION:-v0.9.0}
-ASDF_HOME=$HOME/.asdf
-ASDF_BIN=$ASDF_HOME/asdf.sh
+ASDF_VERSION="${ASDF_VERSION:-v0.9.0}"
+ASDF_HOME="$HOME/.asdf"
+ASDF_BIN="$ASDF_HOME/asdf.sh"
+ASDF_COMPLETIONS="$ASDF_HOME/completions/asdf.bash"
 
 ##
 # Helper to idempotently add strings to target files
@@ -46,6 +47,7 @@ get_processor() {
     echo 'M1'
   } || uname -m
 }
+
 get_platform() {
   uname -s
 }
@@ -66,12 +68,13 @@ echo "==> 💁 [ASDF] install with plugins"
 if [ ! -f "$ASDF_BIN" ]; then
   echo "===> ⤵️ ASDF not detected ... installing"
   git clone https://github.com/asdf-vm/asdf.git "$ASDF_HOME" --branch $ASDF_VERSION
-  [ ! command -v asdf ] &>/dev/null && {
-    echo "====> ⚕️ adding to shell profile"
-    append_uniquely "$SHELL_PROFILE" ". $ASDF_HOME/asdf.sh"
-    append_uniquely "$SHELL_PROFILE" ". $ASDF_HOME/completions/asdf.bash"
-  }
 fi
+
+[ ! command -v asdf ] &>/dev/null && {
+  echo "====> ⚕️ adding to shell profile"
+  append_uniquely "$SHELL_PROFILE" ". $ASDF_BIN"
+  append_uniquely "$SHELL_PROFILE" ". $ASDF_COMPLETIONS"
+}
 
 source "$ASDF_BIN"
 

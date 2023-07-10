@@ -46,7 +46,7 @@ download_release() {
 
 	# https://github.com/Azure/aztfexport/releases/download/v0.12.0/aztfexport_v0.12.0_darwin_amd64.zip
 	# TODO: Adapt the release URL convention for aztfexport
-	url="$GH_REPO/releases/download/v${version}/${TOOL_NAME}_v${version}_${platform}.tar.gz"
+	url="${GH_REPO}/releases/download/v${version}/${TOOL_NAME}_v${version}_${platform}.tar.gz"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
